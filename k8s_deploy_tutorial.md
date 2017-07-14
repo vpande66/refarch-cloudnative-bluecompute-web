@@ -8,16 +8,16 @@ In this section you will learn how to update the Web App your just deployed in s
 * Complete up to [Step 5](https://cloudcontent.mybluemix.net/devops/method/tutorials/kubernetes?task=5) of the Kubernetes Tutorial.
 
 ### Step 1: Checkout tutorial code
-1. Checkout `stsa` branch:
+1. Checkout `tutorial-task8` branch:
 
 ```
 $ cd ../refarch-cloudnative-bluecompute-web
-$ git checkout -b stsa
-$ git pull origin stsa
+$ git checkout -b tutorial-task8
+$ git pull origin tutorial-task8
 ```
 
 2. Open the `StoreWebApp/public/resources/components/views/home.html` in your code editor to see the new changes.
-    * You should see a header tag that says `Welcome to STSA!` instead of `BlueCompute Store!`
+    * You should see header tags that say `Welcome!` ` Updated for Tutorial Task 8` instead of `BlueCompute Store!`
 
 ### Step 2: Update the Web App Deployment with a new Docker Image
 
@@ -33,7 +33,7 @@ d). Deploy the new Docker image by updating the Kubernetes Deployment by doing t
      * `<image-name>` is the name of the new Docker image that was pushed to the Docker registry.  
      * `<tag>` is the tag of the new Docker image that was pushed to the Docker registry.  
 
-To avoid spending too much time building docker images in this tutorial, we created and pushed a pre-built Docker image to the `ibmcase` registry in Docker Hub. You can check out the `stsa` image in Docker Hub [here](https://hub.docker.com/r/ibmcase/bluecompute-web/tags/).
+To avoid spending too much time building docker images in this tutorial, we created and pushed a pre-built Docker image to the `ibmcase` registry in Docker Hub. You can check out the `tutorial-task8` image in Docker Hub [here](https://hub.docker.com/r/ibmcase/bluecompute-web/tags/).
 
 Kubernetes defines its components and deployment through sets of yaml files. In this case, the web application deployment and services are defined in the `web.yaml` file. Take a minute to quickly review this file if you can.
 
@@ -42,12 +42,15 @@ Ensure your terminal/command window has kubectl setup to configure *cloudnatived
 
 ```
 $ kubectl config current-context
+
 cloudnativedev
 ```
 
 If above command did not return your cluster name, then set the kube configuration by running `export KUBECONFIG=...` command.
 
-Get the correct export command from the output of `bx cs cluster-config cloudnative` and run it in your terminal/command window. A sample export command will look like `export KUBECONFIG=/Users/ibm/.bluemix/plugins/container-service/clusters/cloudnativedev/kube-config-prod-mel01-cloudnativedev.yml`.
+Get export command from the output of `bx cs cluster-config cloudnative`, and run it in your terminal/command window.
+
+A sample export command will look like `export KUBECONFIG=/Users/ibm/.bluemix/plugins/container-service/clusters/cloudnativedev/kube-config-prod-mel01-cloudnativedev.yml`.
 
 Run `kubectl config current-context` again to confirm kubectl is now set to manage your cloudnativedev cluster.
 
@@ -57,7 +60,7 @@ For detailed instructions to configure kubectl, refer to [Task 7 Steps 1 through
 Now let's update the Web app docker image as follows:
 
 ```
-$ kubectl set image deployment/bluecompute-web-deployment web-ce=ibmcase/bluecompute-web:stsa
+$ kubectl set image deployment/bluecompute-web-deployment web-ce=ibmcase/bluecompute-web:tutorial-task8
 ```
 
 The *web-ce* parameter is the Container name defined in the web.yaml file.
@@ -65,14 +68,14 @@ The *web-ce* parameter is the Container name defined in the web.yaml file.
 #### 3. Validate Deployment History
 Let's validate that the new deployment completed successfully.
 
-Run the following command, and from the output verify the **Image** name and tag of the *Running* pods match to what was set (**ibmcase/bluecompute-web:stsa**) in previous step.
+Run the following command, and from the output verify the **Image** name and tag of the *Running* pods match to what was set (**ibmcase/bluecompute-web:tutorial-task8**) in previous step.
 
 ```
 $ kubectl describe rs bluecompute-web-deployment
 
 Name:           bluecompute-web-deployment-3031554331
 Namespace:      default
-Image(s):       ibmcase/bluecompute-web:stsa
+Image(s):       ibmcase/bluecompute-web:tutorial-task8
 Selector:       app=bluecompute,chart=web-0.1.0,micro=web-bff,pod-template-hash=3031554331,release=web,tier=frontend
 Labels:   app=bluecompute
           chart=web-0.1.0
@@ -98,7 +101,7 @@ $ kubectl get service bluecompute-web -o jsonpath='{.spec.ports[0].nodePort}'
 
 Now, open a new browser window and paste the URL (http://ip:port). If successful, you should see web page that looks like the following:
 
-![BlueCompute List](static/bluecompute_stsa.png?raw=true)
+![BlueCompute List](static/tutorial_task8_updated_page.png?raw=true)
 
 You have successfully updated the Bluecompute Web App Deployment!
 
@@ -177,6 +180,6 @@ If successful, you should see an output similar to above.
 #### 4. Validate the Web App Rollback Changes
 From the web browser you have the web app running, refresh the page, you should see your application still running. you should see web page that looks like the following:
 
-![BlueCompute List](static/bluecompute_stsa_original.png?raw=true)
+![BlueCompute List](static/bluecompute_original.png?raw=true)
 
 You have successfully rolled back the Bluecompute Web App Deployment!
