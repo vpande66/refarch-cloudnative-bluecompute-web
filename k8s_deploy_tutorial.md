@@ -17,7 +17,7 @@ $ git pull origin tutorial-task8
 ```
 
 2. Open the `StoreWebApp/public/resources/components/views/home.html` in your code editor to see the new changes.
-    * You should see header tags that say `Welcome!` ` Updated for Tutorial Task 8` instead of `BlueCompute Store!`
+    * You should see header tags that say `Updated for Tutorial Task 8` instead of `BlueCompute Store!`
 
 ### Step 2: Update the Web App Deployment with a new Docker Image
 
