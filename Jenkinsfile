@@ -13,7 +13,10 @@ podTemplate(label: 'pod',
         stage('Distribute Docker Image') {
             checkout scm
             container('docker') {
-                stage ('Build Docker Image') {
+                stage('testy') {
+                    sh 'echo Hi'
+                }
+                /*stage ('Build Docker Image') {
                     sh """
                     #!/bin/bash
                     BX_REGISTRY=`cat /var/run/configs/bluemix-target/bluemix-registry`
@@ -38,7 +41,7 @@ podTemplate(label: 'pod',
                     bx cr login
                     docker push \${BX_REGISTRY}/\${BX_NAMESPACE}/bluecompute-web:${env.BUILD_NUMBER}
                     """
-                }
+                }*/
             }
         }
 
