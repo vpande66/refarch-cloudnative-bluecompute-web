@@ -42,7 +42,7 @@ podTemplate(label: 'pod',
             }
         }
 
-        stage('Chart') {
+        /*stage('Chart') {
             container('helm') {
                 stage ('Install Web application Chart') {
                     sh """
@@ -67,6 +67,6 @@ podTemplate(label: 'pod',
                     """
                 }
             }
-        }
+        }*/
     }
 }
